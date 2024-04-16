@@ -161,6 +161,7 @@ class PartyQuickEntryForm extends GSTQuickEntryForm {
                 fieldname: "_email_id",
                 fieldtype: "Data",
                 options: "Email",
+                reqd:1
             },
             {
                 fieldtype: "Column Break",
@@ -169,6 +170,7 @@ class PartyQuickEntryForm extends GSTQuickEntryForm {
                 label: __("Mobile Number"),
                 fieldname: "_mobile_no",
                 fieldtype: "Data",
+                reqd:1
             },
         ];
     }
