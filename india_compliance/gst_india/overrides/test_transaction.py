@@ -1158,6 +1158,7 @@ class TestPlaceOfSupply(FrappeTestCase):
         doc_args = {
             "doctype": "Sales Invoice",
             "customer": "_Test Registered Composition Customer",
+            "shipping_address_name": "_Test Indian Registered Company-Billing",
         }
 
         settings = ["Accounts Settings", None, "determine_address_tax_category_from"]
