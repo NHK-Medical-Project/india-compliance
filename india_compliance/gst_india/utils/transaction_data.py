@@ -13,6 +13,7 @@ from india_compliance.gst_india.constants.e_waybill import (
     TRANSPORT_MODES,
     VEHICLE_TYPES,
 )
+from india_compliance.gst_india.overrides.transaction import _validate_hsn_codes
 from india_compliance.gst_india.utils import (
     get_gst_uom,
     get_validated_country_code,
@@ -272,8 +273,18 @@ class GSTTransactionData:
                 title=_("Invalid Data"),
             )
 
+<<<<<<< HEAD
     def validate_non_gst_items(self):
         validate_non_gst_items(self.doc)
+=======
+        _validate_hsn_codes(
+            self.doc,
+            valid_hsn_length=[6, 8],
+            message=_(
+                "Since HSN/SAC Code is mandatory for generating e-Waybill/e-Invoices.<br>"
+            ),
+        )
+>>>>>>> bd679e6b (fix: validate hsn code for both e-waybill and e-invoice)
 
     def get_all_item_details(self):
         all_item_details = []
