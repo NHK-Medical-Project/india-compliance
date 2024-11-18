@@ -16,7 +16,9 @@ class TestGSTR2b(FrappeTestCase, TestGSTRMixin):
         cls.return_period = "032020"
         cls.doctype = "GST Inward Supply"
         cls.log_doctype = "GSTR Import Log"
-        cls.test_data = parse_json(read_file(get_data_file_path("test_gstr_2b.json")))
+        cls.test_data = parse_json(
+            read_file(get_data_file_path("test_gstr_2b_v3_0.json"))
+        )
 
         save_gstr_2b(
             cls.gstin,
@@ -206,14 +208,10 @@ class TestGSTR2b(FrappeTestCase, TestGSTRMixin):
                 "bill_date": date(2016, 3, 3),
                 "itc_availability": "Yes",
                 "document_value": 400,
-                "items": [
-                    {
-                        "igst": 0,
-                        "cgst": 200,
-                        "sgst": 200,
-                        "cess": 0,
-                    }
-                ],
+                "igst": 0,
+                "cgst": 200,
+                "sgst": 200,
+                "cess": 0,
             },
             doc,
         )
@@ -236,14 +234,10 @@ class TestGSTR2b(FrappeTestCase, TestGSTRMixin):
                 "bill_date": date(2016, 3, 3),
                 "itc_availability": "Yes",
                 "document_value": 400,
-                "items": [
-                    {
-                        "igst": 0,
-                        "cgst": 200,
-                        "sgst": 200,
-                        "cess": 0,
-                    }
-                ],
+                "igst": 0,
+                "cgst": 200,
+                "sgst": 200,
+                "cess": 0,
             },
             doc,
         )
@@ -260,13 +254,9 @@ class TestGSTR2b(FrappeTestCase, TestGSTRMixin):
                 "bill_date": date(2019, 11, 18),
                 "is_amended": 0,
                 "document_value": 246.54,
-                "items": [
-                    {
-                        "taxable_value": 123.02,
-                        "igst": 123.02,
-                        "cess": 0.5,
-                    }
-                ],
+                "taxable_value": 123.02,
+                "igst": 123.02,
+                "cess": 0.5,
             },
             doc,
         )
@@ -285,13 +275,9 @@ class TestGSTR2b(FrappeTestCase, TestGSTRMixin):
                 "bill_date": date(2019, 11, 18),
                 "is_amended": 0,
                 "document_value": 246.54,
-                "items": [
-                    {
-                        "taxable_value": 123.02,
-                        "igst": 123.02,
-                        "cess": 0.5,
-                    }
-                ],
+                "taxable_value": 123.02,
+                "igst": 123.02,
+                "cess": 0.5,
             },
             doc,
         )
