@@ -449,12 +449,14 @@ def download_gstr(
     for company_gstin in company_gstins:
         try:
             if not return_type or return_type == ReturnType.GSTR2A:
-                error = download_pending_gstr_2a(
-                    date_range, company_gstin, force, gst_categories
+                error = download_pending_gstr_2(
+                    ReturnType.GSTR2A, date_range, company_gstin, force, gst_categories
                 )
 
             if not return_type or return_type == ReturnType.GSTR2B:
-                error = download_pending_gstr_2b(date_range, company_gstin)
+                error = download_pending_gstr_2(
+                    ReturnType.GSTR2B, date_range, company_gstin, force, gst_categories
+                )
 
             if error:
                 otp_failures.append(error)
@@ -468,10 +470,13 @@ def download_gstr(
     return otp_failures
 
 
-def download_pending_gstr_2a(
-    date_range, company_gstin, force=False, gst_categories=None
+def download_pending_gstr_2(
+    return_type,
+    date_range,
+    company_gstin,
+    force=False,
+    gst_categories=None,
 ):
-    return_type = ReturnType.GSTR2A
     periods = BaseUtil.get_periods(date_range, return_type)
     if not force:
         periods = get_periods_to_download(company_gstin, return_type, periods)
@@ -479,19 +484,11 @@ def download_pending_gstr_2a(
     if not periods:
         return
 
-    return download_gstr_2a(company_gstin, periods, gst_categories)
+    if return_type == ReturnType.GSTR2A:
+        return download_gstr_2a(company_gstin, periods, gst_categories)
 
-
-def download_pending_gstr_2b(date_range, company_gstin):
-    return_type = ReturnType.GSTR2B
-    periods = get_periods_to_download(
-        company_gstin, return_type, BaseUtil.get_periods(date_range, return_type)
-    )
-
-    if not periods:
-        return
-
-    return download_gstr_2b(company_gstin, periods)
+    if return_type == ReturnType.GSTR2B:
+        return download_gstr_2b(company_gstin, periods)
 
 
 def get_periods_to_download(company_gstin, return_type, periods):
