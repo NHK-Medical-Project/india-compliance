@@ -252,25 +252,3 @@ def set_ineligibility_reason(doc, show_alert=True):
             alert=True,
             indicator="orange",
         )
-<<<<<<< HEAD
-=======
-
-
-def validate_reverse_charge(doc):
-    if doc.itc_classification != "Import Of Goods" or not doc.is_reverse_charge:
-        return
-
-    frappe.throw(_("Reverse Charge is not applicable on Import of Goods"))
-
-
-def validate_hsn_codes(doc):
-    # To determine whether BOE is applicable or not.
-    if doc.gst_category != "Overseas":
-        return
-
-    _validate_hsn_codes(
-        doc,
-        throw=True,
-        message="GST HSN Code is mandatory for Overseas Purchase Invoice.<br>",
-    )
->>>>>>> e516a8f8 (fix: changes in sales invoice)
