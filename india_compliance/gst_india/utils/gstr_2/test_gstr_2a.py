@@ -43,11 +43,7 @@ class TestGSTRMixin:
         )
 
 
-<<<<<<< HEAD
-class TestGSTR2a(FrappeTestCase, TestGSTRMixin):
-=======
-class TestGSTR2a(TestGSTRMixin, IntegrationTestCase):
->>>>>>> 58222927 (fix: only show unregistered RCM invoices in doc issued summary (#2672))
+class TestGSTR2a(TestGSTRMixin, FrappeTestCase):
     # Tests as per version 2.1 of GSTR2A Dt: 14-10-2020
     @classmethod
     def setUpClass(cls):

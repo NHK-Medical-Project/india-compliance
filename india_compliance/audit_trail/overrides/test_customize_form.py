@@ -1,10 +1,10 @@
 import re
 
 import frappe
-from frappe.tests import IntegrationTestCase
+from frappe.tests.utils import FrappeTestCase
 
 
-class TestCustomizeFormAuditTrail(IntegrationTestCase):
+class TestCustomizeFormAuditTrail(FrappeTestCase):
     def test_validate_customize_form(self):
         customize_frm = self.get_customize_form()
         customize_frm.doc_type = "Purchase Invoice"

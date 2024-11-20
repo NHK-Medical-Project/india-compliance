@@ -8,11 +8,7 @@ from india_compliance.gst_india.utils.gstr_2 import GSTRCategory, save_gstr_2b
 from india_compliance.gst_india.utils.gstr_2.test_gstr_2a import TestGSTRMixin
 
 
-<<<<<<< HEAD:india_compliance/gst_india/utils/gstr_2/test_gstr_2B_v4_0.py
-class TestGSTR2b(FrappeTestCase, TestGSTRMixin):
-=======
-class TestGSTR2b(TestGSTRMixin, IntegrationTestCase):
->>>>>>> 58222927 (fix: only show unregistered RCM invoices in doc issued summary (#2672)):india_compliance/gst_india/utils/gstr_2/test_gstr_2b_v4_0.py
+class TestGSTR2b(TestGSTRMixin, FrappeTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

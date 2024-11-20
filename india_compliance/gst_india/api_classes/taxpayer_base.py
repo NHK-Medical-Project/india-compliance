@@ -227,26 +227,6 @@ class TaxpayerAuthenticate(BaseAPI):
 
         return self.auth_token
 
-<<<<<<< HEAD
-=======
-    def reset_auth_token(self):
-        """
-        Reset after job to clear the auth token
-        """
-        frappe.db.set_value(
-            "GST Credential",
-            {
-                "gstin": self.company_gstin,
-                "username": self.username,
-                "service": "Returns",
-            },
-            {"auth_token": None},
-        )
-
-        if not frappe.flags.in_test:
-            frappe.db.commit()  # nosemgrep - executed in after enqueue
-
->>>>>>> 58222927 (fix: only show unregistered RCM invoices in doc issued summary (#2672))
 
 class TaxpayerBaseAPI(TaxpayerAuthenticate):
     BASE_PATH = "standard/gstn"
