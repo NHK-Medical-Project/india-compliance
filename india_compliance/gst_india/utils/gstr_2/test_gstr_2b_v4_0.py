@@ -1,6 +1,5 @@
 from datetime import date
 
-import frappe
 from frappe import parse_json, read_file
 from frappe.tests.utils import FrappeTestCase
 
@@ -9,9 +8,15 @@ from india_compliance.gst_india.utils.gstr_2 import GSTRCategory, save_gstr_2b
 from india_compliance.gst_india.utils.gstr_2.test_gstr_2a import TestGSTRMixin
 
 
+<<<<<<< HEAD:india_compliance/gst_india/utils/gstr_2/test_gstr_2B_v4_0.py
 class TestGSTR2b(FrappeTestCase, TestGSTRMixin):
+=======
+class TestGSTR2b(TestGSTRMixin, IntegrationTestCase):
+>>>>>>> 58222927 (fix: only show unregistered RCM invoices in doc issued summary (#2672)):india_compliance/gst_india/utils/gstr_2/test_gstr_2b_v4_0.py
     @classmethod
     def setUpClass(cls):
+        super().setUpClass()
+
         cls.gstin = "01AABCE2207R1Z5"
         cls.return_period = "032020"
         cls.doctype = "GST Inward Supply"
@@ -25,11 +30,6 @@ class TestGSTR2b(FrappeTestCase, TestGSTRMixin):
             cls.return_period,
             cls.test_data,
         )
-
-    @classmethod
-    def tearDownClass(cls):
-        frappe.db.delete(cls.doctype, {"company_gstin": cls.gstin})
-        frappe.db.delete(cls.log_doctype, {"gstin": cls.gstin})
 
     def test_gstr2b_b2b(self):
         doc = self.get_doc(GSTRCategory.B2B)
