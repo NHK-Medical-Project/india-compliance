@@ -26,7 +26,14 @@ frappe.ui.form.on('GSTR 3B Report', {
 
 						let data = r.message;
 
+<<<<<<< HEAD
 						frappe.ui.get_print_settings(false, print_settings => {
+=======
+        let current_year = new Date().getFullYear();
+        let options = [current_year, current_year - 1, current_year - 2];
+        frm.set_df_property("year", "options", options);
+        frm.set_value("year", options[0]);
+>>>>>>> 1abb2db5 (fix: update naming rule and set field's value properly)
 
 							frappe.render_grid({
 								template: 'gstr_3b_report',
@@ -50,11 +57,18 @@ frappe.ui.form.on('GSTR 3B Report', {
 		});
 	},
 
+<<<<<<< HEAD
 	setup: function(frm) {
 		frm.set_query('company_address', function(doc) {
 			if(!doc.company) {
 				frappe.throw(__('Please set Company'));
 			}
+=======
+        if (!frm.doc.company) return;
+        const options = await india_compliance.set_gstin_options(frm);
+        frm.set_value("company_gstin", options[0]);
+    },
+>>>>>>> 1abb2db5 (fix: update naming rule and set field's value properly)
 
 			return {
 				query: 'frappe.contacts.doctype.address.address.address_query',
@@ -66,3 +80,17 @@ frappe.ui.form.on('GSTR 3B Report', {
 		});
 	},
 });
+<<<<<<< HEAD
+=======
+
+function append_form(frm) {
+    if (frm.is_new()) return;
+
+    $(frm.fields_dict.gstr3b_form.wrapper).empty();
+    $(
+        frappe.render_template("gstr_3b_report", {
+            data: JSON.parse(frm.doc.json_output),
+        })
+    ).appendTo(frm.fields_dict.gstr3b_form.wrapper);
+}
+>>>>>>> 1abb2db5 (fix: update naming rule and set field's value properly)

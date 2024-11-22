@@ -1,6 +1,6 @@
 {
  "actions": [],
- "autoname": "format:GSTR3B-{month}-{year}-{company_address}",
+ "autoname": "format:GSTR3B-{month_or_quarter}-{year}-{company_gstin}",
  "creation": "2019-02-04 11:35:55.964639",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -78,7 +78,11 @@
   }
  ],
  "links": [],
+<<<<<<< HEAD
  "modified": "2024-01-02 14:09:31.230340",
+=======
+ "modified": "2024-11-22 18:36:30.385643",
+>>>>>>> 1abb2db5 (fix: update naming rule and set field's value properly)
  "modified_by": "Administrator",
  "module": "GST India",
  "name": "GSTR 3B Report",
