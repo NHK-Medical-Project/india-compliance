@@ -126,8 +126,9 @@ def generate_e_waybills(doctype, docnames, force=False):
             )
 
         finally:
-            # each e-Waybill needs to be committed individually
-            frappe.db.commit()  # nosemgrep
+            if not frappe.flags.in_test:
+                # each e-Waybill needs to be committed individually
+                frappe.db.commit()  # nosemgrep
 
 
 @frappe.whitelist()
@@ -869,7 +870,8 @@ def _log_and_process_e_waybill(doc, log_data, fetch=False, comment=None):
     if comment:
         log.add_comment(text=comment)
 
-    frappe.db.commit()  # nosemgrep # before delete
+    if not frappe.flags.in_test:
+        frappe.db.commit()  # nosemgrep # before delete
 
     if log.is_cancelled:
         delete_file(doc, get_pdf_filename(log.name))
@@ -881,7 +883,8 @@ def _log_and_process_e_waybill(doc, log_data, fetch=False, comment=None):
         return
 
     _fetch_e_waybill_data(doc, log)
-    frappe.db.commit()  # nosemgrep # after fetch
+    if not frappe.flags.in_test:
+        frappe.db.commit()  # nosemgrep # after fetch
 
     ### Attach PDF
 
@@ -996,6 +999,7 @@ def update_transaction(doc, values):
 
     if doc.doctype == "Delivery Note":
         doc._sub_supply_type = SUB_SUPPLY_TYPES[values.sub_supply_type]
+        doc._sub_supply_desc = values.sub_supply_desc
 
 
 def get_e_waybill_info(doc):
@@ -1440,11 +1444,13 @@ class EWaybillData(GSTTransactionData):
             ("Delivery Note", 0): {
                 "supply_type": "O",
                 "sub_supply_type": doc.get("_sub_supply_type", ""),
+                "sub_supply_desc": doc.get("_sub_supply_desc", ""),
                 "document_type": "CHL",
             },
             ("Delivery Note", 1): {
                 "supply_type": "I",
                 "sub_supply_type": doc.get("_sub_supply_type", ""),
+                "sub_supply_desc": doc.get("_sub_supply_desc", ""),
                 "document_type": "CHL",
             },
             ("Purchase Invoice", 0): {
