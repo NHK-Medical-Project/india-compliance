@@ -135,6 +135,15 @@ frappe.ui.form.on("Purchase Reconciliation Tool", {
         for (let button of $(".custom-actions .inner-group-button")) {
             if (button.innerText?.trim() != "Actions") continue;
             $(".custom-button-group .inner-group-button").remove();
+
+            // to hide `Actions` text on small screens
+            $(button)
+                .find("button")
+                .html(
+                    `<span class="hidden-xs">Actions</span>
+                    ${frappe.utils.icon("select")}`
+                );
+
             $(button).appendTo($(".custom-button-group"));
         }
     },
