@@ -20,8 +20,8 @@ const ALERT_HTML = `
         ? `<a id="download-gstr2b-button" href="#" class="alert-link">
                     Download 2B
                 </a>`
-        : ""
-    }
+                : ""
+        }
     </div>
 `;
 
@@ -98,6 +98,8 @@ frappe.ui.form.on("Purchase Reconciliation Tool", {
             frm.save();
         });
 
+        const action_group = __("Actions");
+
         // add custom buttons
         api_enabled
             ? frm.add_custom_button(__("Download 2A/2B"), () => new ImportDialog(frm))
@@ -111,15 +113,15 @@ frappe.ui.form.on("Purchase Reconciliation Tool", {
             frm.add_custom_button(
                 __("Unlink"),
                 () => unlink_documents(frm),
-                __("Actions")
+                action_group
             );
-            frm.add_custom_button(__("dropdown-divider"), () => { }, __("Actions"));
+            frm.add_custom_button(__("dropdown-divider"), () => { }, action_group);
         }
         ["Accept", "Pending", "Ignore"].forEach(action =>
             frm.add_custom_button(
                 __(action),
                 () => apply_action(frm, action),
-                __("Actions")
+                action_group
             )
         );
         frm.$wrapper
@@ -140,7 +142,7 @@ frappe.ui.form.on("Purchase Reconciliation Tool", {
             $(button)
                 .find("button")
                 .html(
-                    `<span class="hidden-xs">Actions</span>
+                    `<span class="button-label hidden-xs">${action_group}</span>
                     ${frappe.utils.icon("select")}`
                 );
 
