@@ -20,8 +20,8 @@ const ALERT_HTML = `
         ? `<a id="download-gstr2b-button" href="#" class="alert-link">
                     Download 2B
                 </a>`
-                : ""
-        }
+        : ""
+    }
     </div>
 `;
 
@@ -135,7 +135,7 @@ frappe.ui.form.on("Purchase Reconciliation Tool", {
 
         // move actions button next to filters
         for (let button of $(".custom-actions .inner-group-button")) {
-            if (button.innerText?.trim() != "Actions") continue;
+            if (button.innerText?.trim() != action_group) continue;
             $(".custom-button-group .inner-group-button").remove();
 
             // to hide `Actions` text on small screens
