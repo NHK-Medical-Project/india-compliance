@@ -139,12 +139,17 @@ frappe.ui.form.on("Purchase Reconciliation Tool", {
             $(".custom-button-group .inner-group-button").remove();
 
             // to hide `Actions` text on small screens
-            $(button)
-                .find("button")
-                .html(
-                    `<span class="button-label hidden-xs">${action_group}</span>
-                    ${frappe.utils.icon("select")}`
-                );
+            const actions_btn_html = `
+            <div class="d-none d-sm-block">
+                <span class="button-label">${action_group}</span>
+                ${frappe.utils.icon("select")}
+            </div>
+            <div class="d-block d-sm-none">
+                ${frappe.utils.icon("dot-horizontal")}
+            </div>
+            `;
+
+            $(button).find("button").html(actions_btn_html);
 
             $(button).appendTo($(".custom-button-group"));
         }
