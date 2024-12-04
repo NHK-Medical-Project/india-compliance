@@ -16,12 +16,13 @@ const ALERT_HTML = `
         <div>
             You have missing GSTR-2B downloads
         </div>
-        ${api_enabled
-        ? `<a id="download-gstr2b-button" href="#" class="alert-link">
+        ${
+            api_enabled
+                ? `<a id="download-gstr2b-button" href="#" class="alert-link">
                     Download 2B
                 </a>`
-        : ""
-    }
+                : ""
+        }
     </div>
 `;
 
@@ -104,9 +105,9 @@ frappe.ui.form.on("Purchase Reconciliation Tool", {
         api_enabled
             ? frm.add_custom_button(__("Download 2A/2B"), () => new ImportDialog(frm))
             : frm.add_custom_button(
-                __("Upload 2A/2B"),
-                () => new ImportDialog(frm, false)
-            );
+                  __("Upload 2A/2B"),
+                  () => new ImportDialog(frm, false)
+              );
 
         if (!frm.purchase_reconciliation_tool?.data?.length) return;
         if (frm.get_active_tab()?.df.fieldname == "invoice_tab") {
@@ -115,7 +116,7 @@ frappe.ui.form.on("Purchase Reconciliation Tool", {
                 () => unlink_documents(frm),
                 action_group
             );
-            frm.add_custom_button(__("dropdown-divider"), () => { }, action_group);
+            frm.add_custom_button(__("dropdown-divider"), () => {}, action_group);
         }
         ["Accept", "Pending", "Ignore"].forEach(action =>
             frm.add_custom_button(
@@ -134,8 +135,10 @@ frappe.ui.form.on("Purchase Reconciliation Tool", {
         );
 
         // move actions button next to filters
-        for (let button of $(".custom-actions .inner-group-button")) {
-            if (button.innerText?.trim() != action_group) continue;
+        for (const group_div of $(".custom-actions .inner-group-button")) {
+            const btn_label = group_div.querySelector("button").innerText?.trim();
+            if (btn_label != action_group) continue;
+
             $(".custom-button-group .inner-group-button").remove();
 
             // to hide `Actions` text on small screens
@@ -149,9 +152,9 @@ frappe.ui.form.on("Purchase Reconciliation Tool", {
             </div>
             `;
 
-            $(button).find("button").html(actions_btn_html);
+            $(group_div).find("button").html(actions_btn_html);
 
-            $(button).appendTo($(".custom-button-group"));
+            $(group_div).appendTo($(".custom-button-group"));
         }
     },
 
@@ -208,8 +211,8 @@ frappe.ui.form.on("Purchase Reconciliation Tool", {
                 method == "update_api_progress"
                     ? __("Fetching data from GSTN")
                     : __("Updating Inward Supply for Return Period {0}", [
-                        data.return_period,
-                    ]);
+                          data.return_period,
+                      ]);
 
             frm.dashboard.show_progress(
                 "Import GSTR Progress",
@@ -937,8 +940,9 @@ class DetailViewDialog {
                         ? ["GST Inward Supply"]
                         : ["Purchase Invoice", "Bill of Entry"],
 
-                read_only_depends_on: `eval: ${this.missing_doctype == "GST Inward Supply"
-                    }`,
+                read_only_depends_on: `eval: ${
+                    this.missing_doctype == "GST Inward Supply"
+                }`,
 
                 onchange: () => {
                     const doctype = this.dialog.get_value("doctype");
