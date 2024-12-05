@@ -156,6 +156,15 @@ frappe.ui.form.on("Purchase Reconciliation Tool", {
 
             $(group_div).appendTo($(".custom-button-group"));
         }
+
+        // remove `Actions` from page actions menu
+        for (const action of frm.$wrapper.find(".user-action")) {
+            const innerText = action?.innerText;
+
+            if (innerText && innerText.includes(action_group)) {
+                $(action).remove();
+            }
+        }
     },
 
     before_save(frm) {
